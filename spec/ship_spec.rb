@@ -4,7 +4,7 @@ require './lib/ship'
 RSpec.describe Ship do
   describe '#initialize' do
     it 'exists and has attributes' do
-    cruiser = Ship.new("Cruiser", 3)
+      cruiser = Ship.new("Cruiser", 3)
 
     expect(cruiser.name).to eq('Cruiser')
     expect(cruiser.length).to eq(3)
@@ -14,7 +14,7 @@ RSpec.describe Ship do
 
   describe '#sunk?' do
     it 'has not been sunk by default' do
-    cruiser = Ship.new("Cruiser", 3)
+      cruiser = Ship.new("Cruiser", 3)
 
     expect(cruiser.sunk?).to eq(false)
     end
@@ -24,6 +24,13 @@ RSpec.describe Ship do
     it 'has been hit' do
       cruiser = Ship.new("Cruiser", 3)
 
+      cruiser.hit
+      expect(cruiser.health).to eq(2)
+    end
+
+    it 'has been sunk' do
+      cruiser = Ship.new("Cruiser", 3)
+      
       cruiser.hit
       expect(cruiser.health).to eq(2)
       expect(cruiser.sunk?).to eq(false)
