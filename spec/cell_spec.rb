@@ -18,4 +18,15 @@ describe Cell do
     expect(cell.empty?).to be true
     end
   end
+
+  describe '#place_ship()' do
+    it 'places the ship' do
+      cell = Cell.new('B4')
+      cruiser = Ship.new("Cruiser", 3)
+      cell.place_ship(cruiser)
+
+    expect(cell.ship.name).to eq("Cruiser")
+    expect(cell.empty?).to eq(false)
+    end
+  end
 end
