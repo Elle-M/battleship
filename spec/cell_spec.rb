@@ -18,3 +18,4 @@ describe Cell do
     expect(cell.empty?).to be true
     end
   end
+end
