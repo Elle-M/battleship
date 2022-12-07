@@ -40,7 +40,7 @@ describe Cell do
     end
   end
 
-  describe '#fire_upon'
+  describe '#fire_upon' do
     it 'can be fired upon' do
       cell = Cell.new('B4')
       cruiser = Ship.new("Cruiser", 3)
@@ -49,6 +49,28 @@ describe Cell do
       cell.fire_upon
 
       expect(cruiser.health).to eq(2)
-      expect(cell.fired_upon?).to eq true
+      expect(cell.fired_upon?).to be true
     end
+  end
+
+  describe '#render' do
+    it 'renders cell status' do
+      cell_1 = Cell.new("B4")
+      expect(cell_1.render).to eq(".")
+      expect(cell_1.fired_upon?).to eq(false)
+
+      cell_1.fire_upon
+      expect(cell_1.render).to eq("M")
+      expect(cell_1.fired_upon?).to be true
+
+      cell_1 = Cell.new("B4")
+      cell_2 = Cell.new("C3")
+      cruiser = Ship.new("Cruiser", 3)
+      cell_2.place_ship(cruiser)
+      # cell_2.fire_upon
+      expect(cell_2.render).to eq(".")
+      # expect(cell_2.render(true)).to eq("S")
+      # expect(cell_1.fired_upon?).to be true
+    end
+  end
 end
