@@ -29,4 +29,26 @@ describe Cell do
     expect(cell.empty?).to eq(false)
     end
   end
+
+  describe '#fired_upon?' do
+    it 'hasnt been fired upon by default' do
+      cell = Cell.new('B4')
+      cruiser = Ship.new("Cruiser", 3)
+      cell.place_ship(cruiser)
+
+    expect(cell.fired_upon?).to be false
+    end
+  end
+
+  describe '#fire_upon'
+    it 'can be fired upon' do
+      cell = Cell.new('B4')
+      cruiser = Ship.new("Cruiser", 3)
+      cell.place_ship(cruiser)
+
+      cell.fire_upon
+
+      expect(cruiser.health).to eq(2)
+      expect(cell.fired_upon?).to eq true
+    end
 end
