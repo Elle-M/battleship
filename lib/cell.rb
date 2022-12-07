@@ -26,4 +26,15 @@ class Cell
     @fired_upon = true
     @ship.hit unless @ship.nil?
   end
+
+  def render(user_ships = true) 
+    if !fired_upon?
+      "."
+    elsif @fired_upon 
+      "M"
+    elsif @fire_upon
+      "H"
+    end
+    # elsif 
+  end
 end
