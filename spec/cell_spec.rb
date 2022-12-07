@@ -72,15 +72,6 @@ describe Cell do
       cell_2 = Cell.new("C3")
       cruiser = Ship.new("Cruiser", 3)
       cell_2.place_ship(cruiser)
-      # cell_2.fire_upon
-      expect(cell_2.render).to eq(".")
-      # expect(cell_2.render(true)).to eq("S")
-      # expect(cell_1.fired_upon?).to be true
-
-      cell_1 = Cell.new("B4")
-      cell_2 = Cell.new("C3")
-      cruiser = Ship.new("Cruiser", 3)
-      cell_2.place_ship(cruiser)
       cell_2.fire_upon
       #require 'pry'; binding.pry
       expect(cell_2.render).to eq("H")
@@ -101,6 +92,17 @@ describe Cell do
       expect(cruiser.sunk?).to be true
       expect(cell_2.render).to eq("X")
       #require 'pry'; binding.pry
+    end
+
+    it 'show uses ships' do
+      cell_1 = Cell.new("B4")
+      cell_2 = Cell.new("C3")
+      cruiser = Ship.new("Cruiser", 3)
+      cell_2.place_ship(cruiser)
+      # cell_2.fire_upon
+      expect(cell_2.render).to eq(".")
+      expect(cell_2.render(true)).to eq("S")
+      # expect(cell_1.fired_upon?).to be true
     end
   end
 end
