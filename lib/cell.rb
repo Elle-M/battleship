@@ -28,15 +28,21 @@ class Cell
   end
 
   def render(user_ships = true) 
-    if !fired_upon?
-      "."
-    elsif @fired_upon == true && @empty == true
-      "M"
-    elsif @fired_upon == true && @empty == false && @ship.sunk? == false
-      "H"
-    elsif @ship.sunk? == true
-      "X"
-    end
+    if !fired_upon? && @empty == false && @ship.sunk? == false
+        "S"
+      end 
+      if !fired_upon?
+        "."
+      elsif @fired_upon == true && @empty == true
+        "M"
+      elsif @fired_upon == true && @empty == false && @ship.sunk? == false
+        "H"
+      elsif @ship.sunk? == true
+        "X"
+      end
+      # if !fired_upon? && @empty == false && @ship.sunk? == false
+      #   "S"
+      # end
     # elsif 
   end
 end
