@@ -27,5 +27,10 @@ class Board
   
   def valid_coordinate?(cell)
      cells.value?(cell)
+    # require 'pry'; binding.pry
+  end
+
+  def valid_placement?(ship, cell)
+    cells.value?(cell)
   end
 end
