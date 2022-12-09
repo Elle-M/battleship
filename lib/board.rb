@@ -33,8 +33,11 @@ class Board
   end
 
   def valid_placement?(ship_type, coordinates)
-      ship_type.length == coordinates.length &&
-      horizontal_valid_placement?(coordinates)
+       (ship_type.length == coordinates.length && horizontal_valid_placement?(coordinates)) ||
+       (ship_type.length == coordinates.length && 
+       proper_vertical_placement?(coordinates))
+        
+      
   end
 
   def duplicate_letter?(coordinates) #Will return true for ["A1", "A2", "A3"] or false ["A1", "B1", "C1"] - both valid placements
@@ -51,14 +54,18 @@ class Board
       duplicate_letter?(coordinates) && number_consecutive?(coordinates)
   end
 
-  def consecutive_letter(coordinates) #Will return false for ["A2", "A3", "A4"]
+  def consecutive_letter?(coordinates) #Will return false for ["A2", "A3", "A4"]
       letter = coordinates.map { |coordinate| coordinate.split('').first.ord}
       letter.each_cons(2).all? { |letter_1, letter_2| letter_2.ord - 1 == letter_1 } #true
   end
 
-  def number_duplicate(coordinates) # - won't run correctly in pry. Says ["A2", "A3", "A4"] eq true for duplicate numbers. should be false. 
+  def number_duplicate?(coordinates) # - returs true for  ["A2", "B2", "C2"] and false for ["A1", "B2", "C3"].
       number = coordinates.map { |coordinate| coordinate.split('').last.to_i }
-      number.each_cons(2).all? { |num_1, num_2| num_2 - 1 == num_1 } #false
+      number.each_cons(2).all? { |num_1, num_2| num_1 == num_2 } #true
+  end
+
+  def proper_vertical_placement?(coordinates)
+      consecutive_letter?(coordinates) && number_duplicate?(coordinates) 
   end
   
 end
