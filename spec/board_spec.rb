@@ -63,12 +63,12 @@ describe Board do
     end
   end
 
-  # describe '#overlapping' do
-  #   it 'will not overlap' do
-  #     board.place(cruiser, ["A1", "A2", "A3"])
-  #     submarine = Ship.new("Submarine", 2)
-  # #require 'pry'; binding.pry
-  #     expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
-  #   end
-  # end
+  describe '#overlapping' do
+    it 'will not overlap' do
+      board.place(cruiser, ["A1", "A2", "A3"])
+      submarine = Ship.new("Submarine", 2)
+  #require 'pry'; binding.pry
+      expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
+    end
+  end
 end  
