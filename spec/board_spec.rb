@@ -51,11 +51,9 @@ describe Board do
     it 'places ships' do
       cruiser = Ship.new("Cruiser", 3)
       board.place(cruiser, ["A1", "A2", "A3"])
-      #require 'pry'; binding.pry
       cell_1 = board.cells[:A1]
       cell_2 = board.cells[:A2]
       cell_3 = board.cells[:A3]
-      #require 'pry'; binding.pry
     expect(cell_1.ship).to eq(cruiser)
     expect(cell_2.ship).to eq(cruiser)
     expect(cell_3.ship).to eq(cruiser)
@@ -67,8 +65,32 @@ describe Board do
     it 'will not overlap' do
       board.place(cruiser, ["A1", "A2", "A3"])
       submarine = Ship.new("Submarine", 2)
-  #require 'pry'; binding.pry
       expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
+    end
+  end
+
+  describe '#render' do
+    it 'can render a game board' do
+      board.place(cruiser, ["A1", "A2", "A3"])
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+      
+      no_ships = "  1 2 3 4 \n" +
+                  "A . . . . \n" +
+                  "B . . . . \n" +
+                  "C . . . . \n" +
+                  "D . . . . \n"
+      
+      expect(board.render).to eq(no_ships)
+      
+      ships_shown = "  1 2 3 4 \n" +
+                    "A S S S . \n" +
+                    "B . . . . \n" +
+                    "C . . . . \n" +
+                    "D . . . . \n"
+
+      expect(board.render(true)).to eq(ships_shown)
     end
   end
 end  
