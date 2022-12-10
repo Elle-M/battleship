@@ -92,6 +92,36 @@ describe Board do
 
       expect(board.render(true)).to eq(ships_shown)
     end
+    
+    it 'can render a miss' do 
+      board.place(cruiser, ["A1", "A2", "A3"])
+      board.place(submarine, ["C1", "D1"])
+
+      cell_1 = board.cells[:A1]
+      cell_2 = board.cells[:A2]
+      cell_3 = board.cells[:A3]
+      cell_4 = board.cells[:B4]
+      cell_5 = board.cells[:C1]
+      cell_6 = board.cells[:D1]
+
+      cell_4.fire_upon
+      
+      miss_ship =  "  1 2 3 4 \n" +
+                  "A . . . . \n" +
+                  "B . . . M \n" +
+                  "C . . . . \n" +
+                  "D . . . . \n"
+      
+      expect(board.render).to eq(miss_ship)
+
+      ships_shown_miss = "  1 2 3 4 \n" +
+                        "A S S S . \n" +
+                        "B . . . M \n" +
+                        "C S . . . \n" +
+                        "D S . . . \n"
+      
+      expect(board.render(true)).to eq(ships_shown_miss)
+    end
 
     it 'can render a hit' do 
       board.place(cruiser, ["A1", "A2", "A3"])
@@ -106,24 +136,53 @@ describe Board do
 
       cell_1.fire_upon
       cell_4.fire_upon
-      cell_5.fire_upon
-      cell_6.fire_upon
-
+      
       hit_ship =  "  1 2 3 4 \n" +
                   "A H . . . \n" +
                   "B . . . M \n" +
-                  "C X . . . \n" +
-                  "D X . . . \n"
+                  "C . . . . \n" +
+                  "D . . . . \n"
       
       expect(board.render).to eq(hit_ship)
 
       ships_shown_hit = "  1 2 3 4 \n" +
                         "A H S S . \n" +
                         "B . . . M \n" +
+                        "C S . . . \n" +
+                        "D S . . . \n"
+      
+      expect(board.render(true)).to eq(ships_shown_hit)
+    end
+
+    it 'can show a sunk ship' do
+      board.place(cruiser, ["A1", "A2", "A3"])
+      board.place(submarine, ["C1", "D1"])
+
+      cell_1 = board.cells[:A1]
+      cell_2 = board.cells[:A2]
+      cell_3 = board.cells[:A3]
+      cell_4 = board.cells[:B4]
+      cell_5 = board.cells[:C1]
+      cell_6 = board.cells[:D1]
+
+      cell_5.fire_upon
+      cell_6.fire_upon
+
+      sunk_ship =  "  1 2 3 4 \n" +
+                  "A . . . . \n" +
+                  "B . . . . \n" +
+                  "C X . . . \n" +
+                  "D X . . . \n"
+      
+      expect(board.render).to eq(sunk_ship)
+
+      ships_shown_sunk = "  1 2 3 4 \n" +
+                        "A S S S . \n" +
+                        "B . . . . \n" +
                         "C X . . . \n" +
                         "D X . . . \n"
       
-      expect(board.render(true)).to eq(ships_shown_hit)
+      expect(board.render(true)).to eq(ships_shown_sunk)
     end
   end
 end  
