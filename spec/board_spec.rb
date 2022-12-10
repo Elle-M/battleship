@@ -116,6 +116,14 @@ describe Board do
                   "D X . . . \n"
       
       expect(board.render).to eq(hit_ship)
+
+      ships_shown_hit = "  1 2 3 4 \n" +
+                        "A H S S . \n" +
+                        "B . . . M \n" +
+                        "C X . . . \n" +
+                        "D X . . . \n"
+      
+      expect(board.render(true)).to eq(ships_shown_hit)
     end
   end
 end  
