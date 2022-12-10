@@ -92,5 +92,30 @@ describe Board do
 
       expect(board.render(true)).to eq(ships_shown)
     end
+
+    it 'can render a hit' do 
+      board.place(cruiser, ["A1", "A2", "A3"])
+      board.place(submarine, ["C1", "D1"])
+
+      cell_1 = board.cells[:A1]
+      cell_2 = board.cells[:A2]
+      cell_3 = board.cells[:A3]
+      cell_4 = board.cells[:B4]
+      cell_5 = board.cells[:C1]
+      cell_6 = board.cells[:D1]
+
+      cell_1.fire_upon
+      cell_4.fire_upon
+      cell_5.fire_upon
+      cell_6.fire_upon
+
+      hit_ship =  "  1 2 3 4 \n" +
+                  "A H . . . \n" +
+                  "B . . . M \n" +
+                  "C X . . . \n" +
+                  "D X . . . \n"
+      
+      expect(board.render).to eq(hit_ship)
+    end
   end
 end  
