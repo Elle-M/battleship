@@ -1,12 +1,8 @@
 class Board
-  attr_reader :cells
+  attr_reader :board, :cells
               
   def initialize
-    @cells = cells
-  end
-
-  def cells 
-    {
+    @cells = {
     "A1": Cell.new("A1"),
     "A2": Cell.new("A2"),
     "A3": Cell.new("A3"),
@@ -25,19 +21,39 @@ class Board
     "D4": Cell.new("D4")
   }
   end
+
+#   #def cells 
+#     {
+#     "A1": Cell.new("A1"),
+#     "A2": Cell.new("A2"),
+#     "A3": Cell.new("A3"),
+#     "A4": Cell.new("A4"),
+#     "B1": Cell.new("B1"),
+#     "B2": Cell.new("B2"),
+#     "B3": Cell.new("B3"),
+#     "B4": Cell.new("B4"),
+#     "C1": Cell.new("C1"),
+#     "C2": Cell.new("C2"),
+#     "C3": Cell.new("C3"),
+#     "C4": Cell.new("C4"),
+#     "D1": Cell.new("D1"),
+#     "D2": Cell.new("D2"),
+#     "D3": Cell.new("D3"),
+#     "D4": Cell.new("D4")
+#  # }
+#   end
   
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate.to_sym)
   end
 
-  def valid_placement?(ship_type, coordinates)
+  def valid_placement?(ship, coordinates)
     coordinates.each do |coordinate|
-      return false if !valid_coordinate?(coordinate)
+      return false if !valid_coordinate?(coordinate) || !@cells[coordinate.to_sym].empty?
     end
     #need to check empty?
-    (ship_type.length == coordinates.length && horizontal_valid_placement?(coordinates)) ||
-    (ship_type.length == coordinates.length && 
-    proper_vertical_placement?(coordinates))
+    (ship.length == coordinates.length && horizontal_valid_placement?(coordinates)) ||
+    (ship.length == coordinates.length && proper_vertical_placement?(coordinates))
   end
 
   def duplicate_letter?(coordinates) #Will return true for ["A1", "A2", "A3"] or false ["A1", "B1", "C1"] - both valid placements
@@ -68,11 +84,19 @@ class Board
     consecutive_letter?(coordinates) && number_duplicate?(coordinates) 
   end
 
-  def place(ship_type, coordinates)
-    if valid_placement?(ship_type, coordinates)
-      coordinates.each do |coordinate|
-        @cells[coordinate].cell.place_ship(ship)
+  # def overlapping(coordinates)
+  #   coordinates.all? do |coordinate|
+  #     @cells[coordinate.to_sym].empty?
+  #   end
+  # end
+
+  def place(ship, coordinates)
+    coordinates.each do |coordinate|
+      @cells[coordinate.to_sym].place_ship(ship)
       end
-    end
-  end 
+  end
+
+  def render(user_ships = false)
+
+  end
 end
