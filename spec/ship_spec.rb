@@ -22,23 +22,23 @@ describe Ship do
     it 'has been hit' do
       cruiser.hit
 
-      expect(cruiser.health).to eq(2)
+    expect(cruiser.health).to eq(2)
     end
 
     it 'has been sunk' do
       cruiser.hit
 
-      expect(cruiser.health).to eq(2)
-      expect(cruiser.sunk?).to eq(false)
+    expect(cruiser.health).to eq(2)
+    expect(cruiser.sunk?).to eq(false)
 
       cruiser.hit
 
-      expect(cruiser.health).to eq(1)
-      expect(cruiser.sunk?).to eq(false)
+    expect(cruiser.health).to eq(1)
+    expect(cruiser.sunk?).to eq(false)
 
       cruiser.hit
 
-      expect(cruiser.sunk?).to be true
+    expect(cruiser.sunk?).to be true
     end
   end
 end
