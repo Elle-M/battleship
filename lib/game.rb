@@ -37,20 +37,21 @@ class Game
   # # require 'pry'; binding.pry
   # end
 
-  def valid_comp_coord
-    # ship = [@comp_cruiser, @comp_sub]
+  def valid_comp_coord(ship)
     coordinates = []
     until @comp_board.valid_placement?(ship, coordinates)
-      coordinates = @comp_board.cells.keys.sample(ship.length)
+        coordinates = @comp_board.cells.keys.map do |key|
+          key.to_s
+        end.sample(ship.length) 
     end
-    # require 'pry'; binding.pry
-    # @comp_board.valid_placement?(ship, coordinates)
-  end 
+    coordinates
+    
+  end
 
   def comp_place_ships
     ships = [@comp_cruiser, @comp_sub]
     ships.each do |ship| 
-      coordinates = valid_comp_coord 
+      coordinates = valid_comp_coord(ship) 
       @comp_board.place(ship, coordinates)  
     end
     puts @comp_board.render(show_ships = true)
@@ -60,9 +61,11 @@ class Game
     p "I have laid out my ships on the grid."
     p "You now need to lay out your two ships."
     p "The Cruiser is three units long and the Submarine is two units long."
-    puts board.render(show_ships = false)
+    puts @player_board.render(show_ships = false)
     p "Enter the squares for the Cruiser (3 spaces):"
     user_input = gets.chomp.upcase.split
+  if user_input == valid_placement(ship, coordinates)
+  end
   end
 
 
