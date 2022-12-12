@@ -17,11 +17,11 @@ describe Board do
   describe '#valid coordinate?' do
     it 'has valid coordinates' do
 
-    expect(board.valid_coordinate?(:A1)).to be true 
-    expect(board.valid_coordinate?(:D4)).to be true
-    expect(board.valid_coordinate?(:A5)).to be false
-    expect(board.valid_coordinate?(:E1)).to be false
-    expect(board.valid_coordinate?(:A22)).to be false
+    expect(board.valid_coordinate?("A1")).to be true 
+    expect(board.valid_coordinate?("D4")).to be true
+    expect(board.valid_coordinate?("A5")).to be false
+    expect(board.valid_coordinate?("E1")).to be false
+    expect(board.valid_coordinate?("A22")).to be false
     end
   end
 
@@ -51,9 +51,9 @@ describe Board do
     it 'places ships' do
       cruiser = Ship.new("Cruiser", 3)
       board.place(cruiser, ["A1", "A2", "A3"])
-      cell_1 = board.cells[:A1]
-      cell_2 = board.cells[:A2]
-      cell_3 = board.cells[:A3]
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
     expect(cell_1.ship).to eq(cruiser)
     expect(cell_2.ship).to eq(cruiser)
     expect(cell_3.ship).to eq(cruiser)
@@ -97,12 +97,12 @@ describe Board do
       board.place(cruiser, ["A1", "A2", "A3"])
       board.place(submarine, ["C1", "D1"])
 
-      cell_1 = board.cells[:A1]
-      cell_2 = board.cells[:A2]
-      cell_3 = board.cells[:A3]
-      cell_4 = board.cells[:B4]
-      cell_5 = board.cells[:C1]
-      cell_6 = board.cells[:D1]
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+      cell_4 = board.cells["B4"]
+      cell_5 = board.cells["C1"]
+      cell_6 = board.cells["D1"]
 
       cell_4.fire_upon
       
@@ -127,12 +127,12 @@ describe Board do
       board.place(cruiser, ["A1", "A2", "A3"])
       board.place(submarine, ["C1", "D1"])
 
-      cell_1 = board.cells[:A1]
-      cell_2 = board.cells[:A2]
-      cell_3 = board.cells[:A3]
-      cell_4 = board.cells[:B4]
-      cell_5 = board.cells[:C1]
-      cell_6 = board.cells[:D1]
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+      cell_4 = board.cells["B4"]
+      cell_5 = board.cells["C1"]
+      cell_6 = board.cells["D1"]
 
       cell_1.fire_upon
       cell_4.fire_upon
@@ -158,12 +158,12 @@ describe Board do
       board.place(cruiser, ["A1", "A2", "A3"])
       board.place(submarine, ["C1", "D1"])
 
-      cell_1 = board.cells[:A1]
-      cell_2 = board.cells[:A2]
-      cell_3 = board.cells[:A3]
-      cell_4 = board.cells[:B4]
-      cell_5 = board.cells[:C1]
-      cell_6 = board.cells[:D1]
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+      cell_4 = board.cells["B4"]
+      cell_5 = board.cells["C1"]
+      cell_6 = board.cells["D1"]
 
       cell_5.fire_upon
       cell_6.fire_upon
