@@ -13,16 +13,13 @@ class Game
     @comp_sub = Ship.new("Submarine", 2)
     @player_cruiser = Ship.new("Cruiser", 3)
     @player_sub =  Ship.new("Submarine", 2)
-    @comp_player(#put ships here)
-    @player(#put ships here)
   end
 
   def start
     p 'Welcome to BATTLESHIP' 
     p 'Enter p to play. Enter q to quit.'
-    
     if gets.chomp.downcase == "p"
-      run_game
+    setup
     elsif gets.chomp.downcase == 'q'
       quit
     else
@@ -30,34 +27,51 @@ class Game
     end
   end
 
-  def run_game
-# Computer can place ships randomly in valid locations
-      @comp_board
-      #comp_player(@comp_ships)
-      #comp_player.comp_board.place.rand
+  def setup
+    comp_place_ships
+    player_place_ships
+  end
+  
+  # def comp_coords
+  #   @comp_board. && @comp_cruiser.length || @comp_sub.length
+  # # require 'pry'; binding.pry
+  # end
 
-#       I have laid out my ships on the grid.
-# You now need to lay out your two ships.
-# The Cruiser is three units long and the Submarine is two units long.
-#   1 2 3 4
-# A . . . .
-# B . . . .
-# C . . . .
-# D . . . .
-# Enter the squares for the Cruiser (3 spaces): player.board.place
-#player(player_ships)
+  def valid_comp_coord
+    # ship = [@comp_cruiser, @comp_sub]
+    coordinates = []
+    until @comp_board.valid_placement?(ship, coordinates)
+      coordinates = @comp_board.cells.keys.sample(ship.length)
+    end
+    # require 'pry'; binding.pry
+    # @comp_board.valid_placement?(ship, coordinates)
+  end 
 
-# User can enter valid sequences to place both ships
-# Entering invalid ship placements prompts user to enter valid placements
+  def comp_place_ships
+    ships = [@comp_cruiser, @comp_sub]
+    ships.each do |ship| 
+      coordinates = valid_comp_coord 
+      @comp_board.place(ship, coordinates)  
+    end
+    puts @comp_board.render(show_ships = true)
   end
 
-  def comp_player(ships)
-
+  def player_place_ships
+    p "I have laid out my ships on the grid."
+    p "You now need to lay out your two ships."
+    p "The Cruiser is three units long and the Submarine is two units long."
+    puts board.render(show_ships = false)
+    p "Enter the squares for the Cruiser (3 spaces):"
+    user_input = gets.chomp.upcase.split
   end
+
+
+  
 end
+  
 game = Game.new
 game.start
-require 'pry'; binding.pry
+# require 'pry'; binding.pry
 #   Functionality Checklist
 
 # This checklist summarizes all of the functionality you are expected to build. This will be used to assess the completion of your project:
