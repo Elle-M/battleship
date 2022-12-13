@@ -92,11 +92,11 @@ class Game
       user_shot = gets.chomp.upcase
       #puts @comp_board.render(show_ships = false)
     end
-  #   comp_shot
-  #   puts "=============COMPUTER BOARD============="
-  #   puts @comp_board.render(show_ships = false) #make false for real game.
-  #   puts "==============PLAYER BOARD=============="
-  #   puts @player_board.render(show_ships = true)
+     comp_shot
+     puts "=============COMPUTER BOARD============="
+     puts @comp_board.render(show_ships = false) #make false for real game.
+     puts "==============PLAYER BOARD=============="
+     puts @player_board.render(show_ships = true)
   #   #results
 
   #   #display both boards
@@ -104,21 +104,20 @@ class Game
   #   #cpu choosing a coordinate to fire on.
   #   #report result of players shot.
   #   #report result of cpu shot. 
-  # end
+  end
 
-  # def comp_shot
-  #   shot_coord = @player_board.cells.keys.sample
-  #   until @player_board.cells[shot_coord].fired_upon? == false
-  #     shot_coord = @player_board.cells.keys.sample
-  #   end
-  #   @player_board.cells[shot_coord].fire_upon
-  #   shot_coord
-  # end
+  def comp_shot
+    shot_coord = @player_board.cells.keys.sample
+    until @player_board.cells[shot_coord].fired_upon? == false
+      shot_coord = @player_board.cells.keys.sample
+    end
+    @player_board.cells[shot_coord].fire_upon
+    shot_coord
+  end
 
   # def results
   
   # end
-end
 end
     
  
