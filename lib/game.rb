@@ -16,7 +16,7 @@ class Game
   end
 
   def start
-    p 'Welcome to BATTLESHIP' 
+    p '----- Welcome to BATTLESHIP -----' 
     p 'Enter p to play. Enter q to quit.'
     if gets.chomp.downcase == "p"
     setup
@@ -84,12 +84,14 @@ class Game
 
     user_shot = gets.chomp.upcase
     #require 'pry'; binding.pry
-    if @comp_board.valid_coordinate?(user_shot) == true
+    if @comp_board.valid_coordinate?(user_shot) && @comp_board.cells[user_shot].fired_upon? == false
         @comp_board.cells[user_shot].fire_upon
         puts 'Firing!'
     else
       puts 'Please enter a valid coordinate:'
       user_shot = gets.chomp.upcase
+      @comp_board.valid_coordinate?(user_shot) && @comp_board.cells[user_shot].fired_upon? == true
+        @comp_board.cells[user_shot].fire_upon
       #puts @comp_board.render(show_ships = false)
     end
      comp_shot
@@ -97,11 +99,11 @@ class Game
      puts @comp_board.render(show_ships = false) #make false for real game.
      puts "==============PLAYER BOARD=============="
      puts @player_board.render(show_ships = true)
-  #   #results
+     puts results
 
-  #   #display both boards
-  #   #player fire on one coordinate
-  #   #cpu choosing a coordinate to fire on.
+  #   #display both boards - done 
+  #   #player fire on one coordinate -done 
+  #   #cpu choosing a coordinate to fire on. - done
   #   #report result of players shot.
   #   #report result of cpu shot. 
   end
@@ -115,9 +117,15 @@ class Game
     shot_coord
   end
 
-  # def results
-  
-  # end
+  #  def results
+  #   if @comp_board.render(show_ships = false) == "M"
+  #     puts "Miss"
+  #   elsif @comp_board.render(show_ships = false) == "H"
+  #     puts "Hit"
+  #   elsif @comp_board.render(show_ships = false) == "X"
+  #     puts "Sunk!"
+  #   end
+  #  end
 end
     
  
