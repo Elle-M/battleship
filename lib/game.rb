@@ -91,6 +91,7 @@ class Game
       puts "==============PLAYER BOARD=============="
       puts @player_board.render(show_ships = true)
     end
+    winners_message
   end
 
   def comp_shot
@@ -121,19 +122,29 @@ class Game
     puts "My shot on #{cpu_shot} sunk your ship!"
     end
   end
+
+  def player_win
+    if @comp_cruiser.sunk? && @comp_sub.sunk?      
+      puts "You won!"
+    end
+  end
+
+  def comp_win
+    if @player_cruiser.sunk? && @player_sub.sunk?
+      puts "I won!"
+    end
+  end
+
+  def winners_message
+    player_win || comp_win
+  end
 end
   
 game = Game.new
 game.start
-#   Functionality Checklist
-
-# This checklist summarizes all of the functionality you are expected to build. This will be used to assess the completion of your project:
-# Turn:
 
 # User is informed when they have already fired on a coordinate
 
-# End Game:
 
 
-# Game reports who won
-# Game returns user back to the Main Menu
+
