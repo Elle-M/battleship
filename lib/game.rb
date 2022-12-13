@@ -55,20 +55,36 @@ class Game
     p "The Cruiser is three units long and the Submarine is two units long."
     puts @player_board.render(show_ships = false)
     p "Enter the squares for the Cruiser (3 spaces):"
-    user_input = gets.chomp.upcase.split(',')
-    # @player_board.valid_placement?(@player_cruiser, user_input) 
-    # @player_board.place(@player_cruiser, user_input)
-    # puts @player_board.render(show_ships = true)
-     require 'pry'; binding.pry
-    #find method to put in commas
-    if user_input == @player_board.valid_placement?(@player_cruiser, user_input)
-      @player_board.place(@player_cruiser, user_input)
-    else user_input != @player_board.valid_placement?(@player_cruiser, user_input) 
+    user_input = gets.chomp.upcase.split
+    until @player_board.valid_placement?(@player_cruiser, user_input) == true
+      # require 'pry'; binding.pry
       p "Those are invalid coordinates. Please try again:"
+      user_input = gets.chomp.upcase.split
     end
+    @player_board.place(@player_cruiser, user_input)
+    puts @player_board.render(show_ships = true)
+    p "Enter the squares for the Submarine (2 spaces):"
+    user_input = gets.chomp.upcase.split(" ")
+    until @player_board.valid_placement?(@player_sub, user_input) == true
+      # require 'pry'; binding.pry
+      p "Those are invalid coordinates. Please try again:"
+      user_input = gets.chomp.upcase.split(" ")
+    end
+    @player_board.place(@player_sub, user_input)
     puts @player_board.render(show_ships = true)
   end
 end
+
+    
+ 
+    #find method to put in commas
+    # if user_input == @player_board.valid_placement?(@player_cruiser, user_input)
+    #   @player_board.place(@player_cruiser, user_input)
+    # else user_input != @player_board.valid_placement?(@player_cruiser, user_input) 
+    #   p "Those are invalid coordinates. Please try again:"
+    # end
+    # puts @player_board.render(show_ships = true)
+
   
 game = Game.new
 game.start
