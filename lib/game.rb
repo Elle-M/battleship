@@ -76,6 +76,7 @@ class Game
   end
 
   def turn
+    until @player_cruiser.sunk? && @player_sub.sunk? || @comp_cruiser.sunk? && @comp_sub.sunk?
     puts "=============COMPUTER BOARD============="
     puts @comp_board.render(show_ships = true) #make false for real game.
     puts "==============PLAYER BOARD=============="
@@ -99,7 +100,7 @@ class Game
      puts @comp_board.render(show_ships = false) #make false for real game.
      puts "==============PLAYER BOARD=============="
      puts @player_board.render(show_ships = true)
-     puts results
+     puts computer_results(@cpu_shot)
 
   #   #display both boards - done 
   #   #player fire on one coordinate -done 
@@ -107,25 +108,38 @@ class Game
   #   #report result of players shot.
   #   #report result of cpu shot. 
   end
-
-  def comp_shot
-    shot_coord = @player_board.cells.keys.sample
-    until @player_board.cells[shot_coord].fired_upon? == false
-      shot_coord = @player_board.cells.keys.sample
-    end
-    @player_board.cells[shot_coord].fire_upon
-    shot_coord
   end
 
-  #  def results
-  #   if @comp_board.render(show_ships = false) == "M"
-  #     puts "Miss"
-  #   elsif @comp_board.render(show_ships = false) == "H"
-  #     puts "Hit"
-  #   elsif @comp_board.render(show_ships = false) == "X"
-  #     puts "Sunk!"
-  #   end
-  #  end
+  def comp_shot
+    cpu_shot = @player_board.cells.keys.sample
+    until @player_board.cells[cpu_shot].fired_upon? == false
+      cpu_shot = @player_board.cells.keys.sample
+    end
+    @player_board.cells[cpu_shot].fire_upon
+    cpu_shot
+  end
+
+   def player_results(user_shot)
+    if @comp_board.cells[@user_shot].render == "M"
+      puts "The shot on #{@user_shot} was a miss."
+    elsif @comp_board.cells[@user_shot].render == "H"
+      puts "The shot on #{@user_shot} was a hit!"
+    elsif @comp_board.cells[@user_shot].render == "X"
+      puts "The shot on #{@user_shot} sunk my ship!"
+    end
+    turn
+   end
+
+   def computer_results(cpu_shot)
+    if @player_board.cells[@cpu_shot].render == "M"
+      puts "The shot on #{@cpu_shot} was a miss."
+    elsif @player_board.cells[@cpu_shot].render == "H"
+      puts "The shot on #{@cpu_shot} was a hit!"
+    elsif @player_board.cells[@cpu_shot].render == "X"
+      puts "The shot on #{@cpu_shot} sunk your ship!"
+    end
+    player_results(@user_shot)
+   end
 end
     
  
