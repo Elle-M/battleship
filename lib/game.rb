@@ -1,9 +1,3 @@
-require 'rspec'
-require './lib/ship'
-require './lib/cell'
-require './lib/board'
-require './lib/game'
-
 class Game 
   attr_reader :comp_board
   def initialize
@@ -16,14 +10,14 @@ class Game
   end
 
   def start
-    puts '----- Welcome to BATTLESHIP -----' 
-    puts 'Enter p to play. Enter q to quit.'
+    puts "----- Welcome to BATTLESHIP -----" 
+    puts "Enter p to play. Enter q to quit."
     if gets.chomp.downcase == "p"
       setup
-    elsif gets.chomp.downcase == 'q'
+    elsif gets.chomp.downcase == "q"
       quit
     else
-      puts 'Please enter p to play or enter q to quit.'
+      puts "Please enter p to play or enter q to quit."
     end
   end
 
@@ -31,6 +25,10 @@ class Game
     comp_place_ships
     player_place_ships
     turn
+  end
+
+  def quit
+    puts "Thank you for playing. Type control + C to exit."
   end
 
   def valid_comp_coord(ship)
@@ -77,17 +75,20 @@ class Game
       puts "Enter the coordinate for your shot:"
       #user_shot = gets.chomp.upcase
       user_shot = @player_board.cells.keys.sample # - comment out for submission
-      if @comp_board.valid_coordinate?(user_shot) && @comp_board.cells[user_shot].fired_upon? == true 
-      puts "You've already selected this coordinate. Try again."
-      end
       until @comp_board.valid_coordinate?(user_shot) && @comp_board.cells[user_shot].fired_upon? == false 
-      puts 'Please enter a valid coordinate:'
+        puts "Please enter a valid coordinate:"
+        if @comp_board.valid_coordinate?(user_shot) && @comp_board.cells[user_shot].fired_upon? == true 
+          puts "You've already selected this coordinate. Try again."
+        end
       #user_shot = gets.chomp.upcase
       user_shot = @player_board.cells.keys.sample # - comment out for submission
       end
       @comp_board.cells[user_shot].fire_upon
-      puts 'Firing!'
+      puts "Firing!"
       player_results(user_shot)
+      if @comp_cruiser.sunk? && @comp_sub.sunk?
+        return player_win
+      end
       puts "=============COMPUTER BOARD============="
       puts @comp_board.render(show_ships = false)
       comp_shot
@@ -139,14 +140,14 @@ class Game
   end
 
   def winners_message
-    player_win || comp_win
+    if player_win == true
+    else comp_win
+    end
   end
 end
   
-game = Game.new
-game.start
 
-# User is informed when they have already fired on a coordinate
+
 
 
 
