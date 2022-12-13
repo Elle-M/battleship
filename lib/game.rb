@@ -30,6 +30,7 @@ class Game
   def setup
     comp_place_ships
     player_place_ships
+    turn
   end
 
   def valid_comp_coord(ship)
@@ -46,7 +47,7 @@ class Game
       coordinates = valid_comp_coord(ship) 
       @comp_board.place(ship, coordinates)  
     end
-    puts @comp_board.render(show_ships = true)
+    puts @comp_board.render(show_ships = true) #delete this
   end
 
   def player_place_ships
@@ -64,17 +65,61 @@ class Game
     @player_board.place(@player_cruiser, user_input)
     puts @player_board.render(show_ships = true)
     p "Enter the squares for the Submarine (2 spaces):"
-    user_input = gets.chomp.upcase.split(" ")
+    user_input = gets.chomp.upcase.split
     until @player_board.valid_placement?(@player_sub, user_input) == true
       # require 'pry'; binding.pry
       p "Those are invalid coordinates. Please try again:"
-      user_input = gets.chomp.upcase.split(" ")
+      user_input = gets.chomp.upcase.split
     end
     @player_board.place(@player_sub, user_input)
-    puts @player_board.render(show_ships = true)
+    puts @player_board.render(show_ships = true) 
   end
-end
 
+  def turn
+    puts "=============COMPUTER BOARD============="
+    puts @comp_board.render(show_ships = true) #make false for real game.
+    puts "==============PLAYER BOARD=============="
+    puts @player_board.render(show_ships = true)
+    puts "Enter the coordinate for your shot:"
+
+    user_shot = gets.chomp.upcase
+    #require 'pry'; binding.pry
+    if @comp_board.valid_coordinate?(user_shot) == true
+        @comp_board.cells[user_shot].fire_upon
+        puts 'Firing!'
+    else
+      puts 'Please enter a valid coordinate:'
+      user_shot = gets.chomp.upcase
+      #puts @comp_board.render(show_ships = false)
+    end
+  #   comp_shot
+  #   puts "=============COMPUTER BOARD============="
+  #   puts @comp_board.render(show_ships = false) #make false for real game.
+  #   puts "==============PLAYER BOARD=============="
+  #   puts @player_board.render(show_ships = true)
+  #   #results
+
+  #   #display both boards
+  #   #player fire on one coordinate
+  #   #cpu choosing a coordinate to fire on.
+  #   #report result of players shot.
+  #   #report result of cpu shot. 
+  # end
+
+  # def comp_shot
+  #   shot_coord = @player_board.cells.keys.sample
+  #   until @player_board.cells[shot_coord].fired_upon? == false
+  #     shot_coord = @player_board.cells.keys.sample
+  #   end
+  #   @player_board.cells[shot_coord].fire_upon
+  #   shot_coord
+  # end
+
+  # def results
+  
+  # end
+end
+end
     
  
     #find method to put in commas
