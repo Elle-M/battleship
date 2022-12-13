@@ -77,6 +77,9 @@ class Game
       puts "Enter the coordinate for your shot:"
       #user_shot = gets.chomp.upcase
       user_shot = @player_board.cells.keys.sample # - comment out for submission
+      if @comp_board.valid_coordinate?(user_shot) && @comp_board.cells[user_shot].fired_upon? == true 
+      puts "You've already selected this coordinate. Try again."
+      end
       until @comp_board.valid_coordinate?(user_shot) && @comp_board.cells[user_shot].fired_upon? == false 
       puts 'Please enter a valid coordinate:'
       #user_shot = gets.chomp.upcase
