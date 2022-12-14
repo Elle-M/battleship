@@ -9,8 +9,9 @@ describe Game do
 
   describe '#initialize' do
     it 'exists' do 
-    expect(game).to be_a(Game)
+      expect(game).to be_a(Game)
     end
+  end
 
   describe '#valid_comp_coord' do
     it 'has valid_comp_coord' do
