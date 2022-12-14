@@ -73,20 +73,25 @@ class Game
   def turn
     until @player_cruiser.sunk? && @player_sub.sunk? || @comp_cruiser.sunk? && @comp_sub.sunk?      
       puts "Enter the coordinate for your shot:"
-      #user_shot = gets.chomp.upcase
-      user_shot = @player_board.cells.keys.sample # - comment out for submission
+      user_shot = gets.chomp.upcase
+      #user_shot = @player_board.cells.keys.sample # - Takes player shot automatically (auto pilot version of game.)
       until @comp_board.valid_coordinate?(user_shot) && @comp_board.cells[user_shot].fired_upon? == false 
         puts "Please enter a valid coordinate:"
         if @comp_board.valid_coordinate?(user_shot) && @comp_board.cells[user_shot].fired_upon? == true 
           puts "You've already selected this coordinate. Try again."
         end
-      #user_shot = gets.chomp.upcase
-      user_shot = @player_board.cells.keys.sample # - comment out for submission
+      user_shot = gets.chomp.upcase
+      #user_shot = @player_board.cells.keys.sample # - Takes player shot automatically (auto pilot version of game.)
       end
       @comp_board.cells[user_shot].fire_upon
       puts "Firing!"
       player_results(user_shot)
       if @comp_cruiser.sunk? && @comp_sub.sunk?
+        puts "=============COMPUTER BOARD============="
+        puts @comp_board.render(show_ships = false)
+
+        puts "==============PLAYER BOARD=============="
+        puts @player_board.render(show_ships = true)
         return player_win
       end
       puts "=============COMPUTER BOARD============="
