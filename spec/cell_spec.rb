@@ -7,15 +7,15 @@ describe Cell do
     it 'exists and has attributes' do
       cell = Cell.new('B4')
 
-    expect(cell).to be_a(Cell)
-    expect(cell.coordinate).to eq('B4')
+      expect(cell).to be_a(Cell)
+      expect(cell.coordinate).to eq("B4")
     end
 
     it 'has empty cell by default' do
       cell = Cell.new('B4')
 
-    expect(cell.ship).to eq(nil)
-    expect(cell.empty?).to be true
+      expect(cell.ship).to eq(nil)
+      expect(cell.empty?).to be true
     end
   end
 
@@ -25,8 +25,8 @@ describe Cell do
       cruiser = Ship.new("Cruiser", 3)
       cell.place_ship(cruiser)
 
-    expect(cell.ship.name).to eq("Cruiser")
-    expect(cell.empty?).to eq(false)
+      expect(cell.ship.name).to eq("Cruiser")
+      expect(cell.empty?).to be false
     end
   end
 
@@ -36,7 +36,7 @@ describe Cell do
       cruiser = Ship.new("Cruiser", 3)
       cell.place_ship(cruiser)
 
-    expect(cell.fired_upon?).to be false
+      expect(cell.fired_upon?).to be false
     end
   end
 
@@ -44,8 +44,8 @@ describe Cell do
     it 'can be fired upon' do
       cell = Cell.new('B4')
       cruiser = Ship.new("Cruiser", 3)
+      
       cell.place_ship(cruiser)
-
       cell.fire_upon
 
       expect(cruiser.health).to eq(2)
@@ -56,13 +56,15 @@ describe Cell do
   describe '#render' do
     it 'renders cell status' do
       cell_1 = Cell.new("B4")
+
       expect(cell_1.render).to eq(".")
-      expect(cell_1.fired_upon?).to eq(false)
+      expect(cell_1.fired_upon?).to be false
     end
 
     it 'renders a miss' do
       cell_1 = Cell.new("B4")
       cell_1.fire_upon
+
       expect(cell_1.render).to eq("M")
       expect(cell_1.fired_upon?).to be true
     end 
@@ -83,6 +85,7 @@ describe Cell do
       cruiser = Ship.new("Cruiser", 3)
       cell_2.place_ship(cruiser)
       cell_2.fire_upon
+
       expect(cell_2.render).to eq("H")
 
       cruiser.sunk?
