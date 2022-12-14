@@ -6,6 +6,7 @@ describe Ship do
 
   describe '#initialize' do
     it 'exists and has attributes' do
+      expect(cruiser).to be_a(Ship)
       expect(cruiser.name).to eq('Cruiser')
       expect(cruiser.length).to eq(3)
       expect(cruiser.health).to eq(3)
